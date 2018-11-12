@@ -7,13 +7,13 @@ const SmartHome = require("./generated/SmartHome").SmartHome;
     try
     {
         communicator = Ice.initialize();
-        const base = communicator.stringToProxy("SimplePrinter:tcp -h 192.168.1.101 -p 10000");
+        const base = communicator.stringToProxy("SimplePrinter:tcp -h 10.10.11.4 -p 10000");
         const iluminacion = await SmartHome.IluminacionPrx.checkedCast(base);
         if(iluminacion)
         {
             //await iluminacion.encenderLampara(1,1);
             
-            //await iluminacion.apagarLampara(1,1);            
+            await iluminacion.apagarLampara(1,1);            
         }
         else
         {
