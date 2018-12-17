@@ -89,6 +89,6 @@ checkBodyUser = function (req){
 	if(req.body.name == null) error = {"error": "Falta el nombre"};
 	if(req.body.email == null) error = {"error": "Falta el email"};
 	if(req.body.password == null) error = {"error": "Falta la contraseña"};
-	if(req.body.password.length < 6) error = {"error": "Contraseña muy corta"};
+	else if(req.body.password.length < 6) error = {"error": "Contraseña muy corta"};
 	return error;
 }

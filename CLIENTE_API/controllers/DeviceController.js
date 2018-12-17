@@ -61,7 +61,7 @@ exports.listUserDevices = function (req, res) {
 //Agrega un nuevo dispositivo
 exports.addDevice = async function (req, res) {
 
-    let checkbodyresponse = checkBodyUser(req);
+    let checkbodyresponse = checkBodyDevice(req);
     if (checkbodyresponse != "") return res.status(400).send(checkbodyresponse);
 
     if (req.body == null) return res.status(400).send("BAD REQUEST");
@@ -86,8 +86,7 @@ exports.addDevice = async function (req, res) {
 
 }
 
-//Retorna json con error si es que lo hay en algun campo (al agregar device)
-checkBodyUser = function (req) {
+checkBodyDevice = function (req) {
     let error = "";
     if (req.body.ip == null) error = { "error": "Falta el ip" };
     if (req.body.name == null) error = { "error": "Falta el nombre" };

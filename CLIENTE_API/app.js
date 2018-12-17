@@ -82,10 +82,10 @@ smartHome.route('/users')
 	.get(AuthController.listUsers);
 
 //RUTAS CLIENTE SMART HOME
-smartHome.route('/encenderled/:id/:idDorm/:idLamp')
-	.get(ClientController.encenderLampara);
-smartHome.route('/apagarled/:id/:idDorm/:idLamp')
-	.get(ClientController.apagarLampara);
+smartHome.route('/encender/:id/:idDorm/:idIn')
+	.get(ClientController.encenderActuador);
+smartHome.route('/apagar/:id/:idDorm/:idIn')
+	.get(ClientController.apagarActuador);
 
 
 app.use('/smarthome', smartHome);
