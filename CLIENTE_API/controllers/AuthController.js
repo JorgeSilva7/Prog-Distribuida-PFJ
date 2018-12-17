@@ -32,9 +32,7 @@ exports.addUser = async function (req, res) {
             error = true;
             return res.status(401).send({ "error": "Email ya existe" });
         }
-    });
 
-    if (!error) {
         if (req.body == null) return res.status(500).send("BAD REQUEST");
 
         var hash = bcrypt.hashSync(req.body.password, salt);
@@ -50,7 +48,7 @@ exports.addUser = async function (req, res) {
             if (err) return res.status(500).send(err.message);
             return res.status(200).send(user);
         });
-    }
+    });
 }
 
 //Login de usuario
@@ -68,7 +66,9 @@ exports.loginUser = function(req, res){
 			//Si son iguales retorna el usuario logueado, caso contrario un error
 			if(decrypt){
                 var tokenData = {
-                    id: user._id
+                    id: user._id,
+                    name: user.name,
+                    lastName: user.lastName != null ? user.lastName : " "
                 }
             
                 var token = jwt.sign(tokenData, config.secret, {

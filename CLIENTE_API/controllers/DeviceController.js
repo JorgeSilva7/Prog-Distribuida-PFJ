@@ -28,8 +28,8 @@ exports.editDevice = function (req, res) {
         if (err) return res.status(500).send(err);
         if (device == null) return res.status(404).send({ error: "No existe el dispositivo" });
 
-        device.ip = req.body.ip;
-        device.name = req.body.name;
+        device.ip = req.body.ip != null ? req.body.ip : device.ip;
+        device.name = req.body.name != null ? req.body.name : device.name;
 
         device.save(function (err, device) {
             if (err) return res.status(500).send(err.message);
@@ -53,6 +53,8 @@ exports.deleteDevice = function (req, res) {
 exports.listUserDevices = function (req, res) {
     Device.find({ _id: req.user.devices }, function (err, devices) {
         if (err) return res.status(500).send(err);
+
+        if (devices.length < 1) return res.status(404).send({"error" : "No hay dispositivos"});
 
         return res.status(200).send(devices);
     });
@@ -79,7 +81,7 @@ exports.addDevice = async function (req, res) {
         if (!err) {
             req.user.save(function (err, user) {
                 if (err) return res.status(500).send(err.message);
-                return res.status(201).send(user);
+                return res.status(201).send(device);
             });
         }
     });

@@ -1,4 +1,4 @@
 module.exports = {
-    'secret': 'patoselacome69',
+    'secret': 'wenawenacomoestamos2018galesprogdistrubuida',
     'database': 'mongodb://localhost/smarthome'
 };
