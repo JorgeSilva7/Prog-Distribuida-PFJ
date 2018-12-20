@@ -64,7 +64,7 @@ exports.listUserDevices = function (req, res) {
 exports.addDevice = async function (req, res) {
 
     let checkbodyresponse = checkBodyDevice(req);
-    if (checkbodyresponse != "") return res.status(400).send(checkbodyresponse);
+    if (checkbodyresponse != "") return res.status(401).send(checkbodyresponse);
 
     if (req.body == null) return res.status(400).send("BAD REQUEST");
 

@@ -19,7 +19,7 @@ exports.listUsers = function(req, res){
 exports.addUser = async function (req, res) {
 
     let checkbodyresponse = checkBodyUser(req);
-    if (checkbodyresponse != "") return res.status(200).send(checkbodyresponse);
+    if (checkbodyresponse != "") return res.status(401).send(checkbodyresponse);
 
     var error = false;
 
