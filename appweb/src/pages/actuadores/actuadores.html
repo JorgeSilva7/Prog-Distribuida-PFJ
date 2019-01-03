@@ -1,0 +1,45 @@
+<!--
+  Generated template for the ActuadoresPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Actuadores</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <div *ngFor="let device of devices">
+      <br>
+      <h2>{{device.name}}</h2>
+      <h5>IP: {{device.ip}}</h5>
+      <ion-row>
+        <ion-label>Actuador 1</ion-label>
+        <button ion-button round (click)="encender(1, device._id)">Encender</button>
+        <button ion-button round (click)="apagar(1, device._id)">Apagar</button>
+      </ion-row>
+      <ion-row>
+        <ion-label>Actuador 2</ion-label>
+        <button ion-button round (click)="encender(2, device._id)">Encender</button>
+        <button ion-button round (click)="apagar(2, device._id)">Apagar</button>
+      </ion-row>
+      <ion-row>
+        <ion-label>Actuador 3</ion-label>
+        <button ion-button round (click)="encender(3, device._id)">Encender</button>
+        <button ion-button round (click)="apagar(3, device._id)">Apagar</button>
+      </ion-row>
+      <ion-row>
+        <ion-label>Actuador 4</ion-label>
+        <button ion-button round (click)="encender(4, device._id)">Encender</button>
+        <button ion-button round (click)="apagar(4, device._id)">Apagar</button>
+      </ion-row>
+      <ion-item-divider></ion-item-divider>
+    </div>
+  </ion-list>
+</ion-content>

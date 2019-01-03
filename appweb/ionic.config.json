@@ -1,0 +1,7 @@
+{
+  "name": "appweb",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

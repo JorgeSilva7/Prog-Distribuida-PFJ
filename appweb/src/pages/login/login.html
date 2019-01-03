@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>SmartHome - ENTRAR</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <form novalidate (ngSubmit)="signIn()" [formGroup]="signInForm">
+
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="text" [(ngModel)]="login.email" formControlName="email" [class.error1]="!signInForm.controls.email.valid && signInForm.controls.email.dirty"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="( signInForm.get('email').hasError('minlength') || signInForm.get('email').hasError('pattern') ||signInForm.get('email').hasError('required') ) && signInForm.get('email').touched">
+        <div class="error" *ngIf="signInForm.get('email').hasError('required') && signInForm.get('email').touched">
+          Por favor ingrese su email
+        </div>
+        <div class="error" *ngIf="signInForm.get('email').hasError('pattern') && signInForm.get('email').touched">
+          El email es requerido
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" [(ngModel)]="login.password" formControlName="password" [class.error1]="!signInForm.controls.password.valid && signInForm.controls.password.dirty"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="( signInForm.get('password').hasError('minlength') || signInForm.get('password').hasError('maxlength') ||signInForm.get('password').hasError('required') ) && signInForm.get('password').touched">
+        <div class="error" *ngIf="signInForm.get('password').hasError('required') && signInForm.get('password').touched">
+          Porfavor ingrese su contraseña
+        </div>
+        <div class="error" *ngIf="signInForm.get('password').hasError('minlength') && signInForm.get('password').touched">
+          Mínimo 6 caracteres
+        </div>
+        <div class="error" *ngIf="signInForm.get('password').hasError('maxlength') && signInForm.get('password').touched">
+          Maximo 12 caracteres
+        </div>
+      </ion-item>
+      <ion-item>
+          <ion-label>¿Recordar?</ion-label>
+          <ion-checkbox [(ngModel)]="remember" [ngModelOptions]="{standalone: true}"></ion-checkbox>
+        </ion-item>
+      <button type="submit" ion-button block color="primary" [disabled]="signInForm.invalid">ENTRAR</button>
+    </form>
+    <button ion-button block color="secondary" (click)="signUp()">REGISTRARSE</button>
+  </ion-list>
+</ion-content>
+<style type="text/css">
+  .error {
+    color: rgb(223, 62, 62);
+    font-size: 11px;
+  }
+
+  .error1 {
+    color: rgb(75, 75, 75);
+    border-bottom: 1px solid #ff0000;
+  }
+  </style>

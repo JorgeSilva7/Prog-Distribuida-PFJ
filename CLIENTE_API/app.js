@@ -1,4 +1,5 @@
 //Imports
+const cors = require('cors');
 var express = require("express");
 var app = express();
 var methodOverride = require("method-override");
@@ -11,23 +12,8 @@ module.exports = app;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride());
-
-app.use(function (req, res, next) {
-	// Website you wish to allow to connect
-	res.setHeader('Access-Control-Allow-Origin', '*');
-
-	// Request methods you wish to allow
-	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-	// Request headers you wish to allow
-	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-	// Set to true if you need the website to include cookies in the requests sent
-	// to the API (e.g. in case you use sessions)
-	res.setHeader('Access-Control-Allow-Credentials', true);
-
-	next();
-});
+app.use(cors());
+app.options('*', cors());
 
 //MongoDB Configuration
 mongoose.connect(config.database, { useNewUrlParser: true }, function (err, res) {
@@ -55,6 +41,7 @@ var userModel = mongoose.model('User');
 
 //PROTEGER RUTAS BAJO "SMARTHOME" SOLO A PETICIONES CON JWT
 smartHome.use(async function (req, res, next) {
+
 	var authorization = req.headers['authorization'];
 
 	if (!authorization) return res.status(401).send({ error: 'No se proporciono una token' });
@@ -70,6 +57,7 @@ smartHome.use(async function (req, res, next) {
 				if (err) return res.status(500).send({ error: 'No se encontro un usuario asociado a la sesion' });
 				if (!user) return res.status(404).send({ error: "Token no es valida como sesion" });
 				req.user = user;
+				
 				next();
 			});
 	});
@@ -93,6 +81,10 @@ smartHome.route('/device')
 	.post(DeviceController.addDevice);
 smartHome.route('/devices')
 	.get(DeviceController.listUserDevices);
+smartHome.route('/sensordevices')
+	.get(DeviceController.listUserSensorDevices);
+smartHome.route('/actuatordevices')
+	.get(DeviceController.listUserActuatorDevices);
 
 //RUTAS USER (Usuario)
 smartHome.route('/users')

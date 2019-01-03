@@ -60,6 +60,28 @@ exports.listUserDevices = function (req, res) {
     });
 };
 
+//Retorna todos los dispositivos de tipo sensores del usuario logueado
+exports.listUserSensorDevices = function (req, res) {
+    Device.find({ _id: req.user.devices, type: 0 }, function (err, devices) {
+        if (err) return res.status(500).send(err);
+
+        if (devices.length < 1) return res.status(404).send({"error" : "No hay dispositivos"});
+
+        return res.status(200).send(devices);
+    });
+};
+
+//Retorna todos los dispositivos de tipo actuadores del usuario logueado
+exports.listUserActuatorDevices = function (req, res) {
+    Device.find({ _id: req.user.devices, type: 1 }, function (err, devices) {
+        if (err) return res.status(500).send(err);
+
+        if (devices.length < 1) return res.status(404).send({"error" : "No hay dispositivos"});
+
+        return res.status(200).send(devices);
+    });
+};
+
 //Agrega un nuevo dispositivo
 exports.addDevice = async function (req, res) {
 
@@ -72,7 +94,8 @@ exports.addDevice = async function (req, res) {
     var device = new Device({
         userId: req.user._id,
         ip: req.body.ip,
-        name: req.body.name
+        name: req.body.name,
+        type: req.body.type
     });
 
     req.user.devices.push(device);
@@ -92,5 +115,6 @@ checkBodyDevice = function (req) {
     let error = "";
     if (req.body.ip == null) error = { "error": "Falta el ip" };
     if (req.body.name == null) error = { "error": "Falta el nombre" };
+    if (req.body.type == null) error = { "error": "Falta el tipo (0: Sensores | 1: Actuadores)" };
     return error;
 }

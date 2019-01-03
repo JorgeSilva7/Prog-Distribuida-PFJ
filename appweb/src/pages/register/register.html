@@ -1,0 +1,87 @@
+<!--
+  Generated template for the RegisterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>register</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <form novalidate (ngSubmit)="register()" [formGroup]="signupform">
+      <ion-item>
+        <ion-label floating>Nombre </ion-label>
+        <ion-input type="text" [(ngModel)]="userData.name" formControlName="name" [class.error1]="!signupform.controls.name.valid && signupform.controls.name.dirty"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="( signupform.get('name').hasError('minlength') || signupform.get('name').hasError('maxlength') ||signupform.get('name').hasError('pattern') ||signupform.get('name').hasError('required') ) && signupform.get('name').touched">
+        <div class="error" *ngIf="signupform.get('name').hasError('required') && signupform.get('name').touched">
+          Por favor, ingresa tu nombre
+        </div>
+        <div class="error" *ngIf="signupform.get('name').hasError('minlength') && signupform.get('name').touched">
+          Minimo 4 caracteres
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Apellido </ion-label>
+        <ion-input type="text" [(ngModel)]="userData.lastName" formControlName="lastName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="text" [(ngModel)]="userData.email" formControlName="email" [class.error1]="!signupform.controls.email.valid && signupform.controls.email.dirty"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="( signupform.get('email').hasError('minlength') || signupform.get('email').hasError('pattern') ||signupform.get('email').hasError('required') ) && signupform.get('email').touched">
+        <div class="error" *ngIf="signupform.get('email').hasError('required') && signupform.get('email').touched">
+          Por favor, ingresa tu email
+        </div>
+        <div class="error" *ngIf="signupform.get('email').hasError('pattern') && signupform.get('email').touched">
+          Email no válido
+        </div>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label floating>Contraseña</ion-label>
+        <ion-input type="password" [(ngModel)]="userData.password" formControlName="password" [class.error1]="!signupform.controls.password.valid && signupform.controls.password.dirty"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="( signupform.get('password').hasError('minlength') || signupform.get('password').hasError('maxlength') ||signupform.get('password').hasError('required') ) && signupform.get('password').touched">
+        <div class="error" *ngIf="signupform.get('password').hasError('required') && signupform.get('password').touched">
+          Por favor, ingresa una contraseña
+        </div>
+        <div class="error" *ngIf="signupform.get('password').hasError('minlength') && signupform.get('password').touched">
+          Mínimo 6 caracteres
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Confirmar Contraseña</ion-label>
+        <ion-input type="password" [(ngModel)]="userData.confirmPassword" formControlName="confirmPassword" [class.error1]="!signupform.controls.confirmPassword.valid && signupform.controls.confirmPassword.dirty"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="( signupform.get('confirmPassword').hasError('minlength') || signupform.get('confirmPassword').hasError('maxlength') ||signupform.get('confirmPassword').hasError('required') ) && signupform.get('confirmPassword').touched">
+        <div class="error" *ngIf="signupform.get('confirmPassword').hasError('required') && signupform.get('confirmPassword').touched || true">
+          Por favor, ingresa la misma contraseña
+        </div>
+      </ion-item>
+      <button type="submit" ion-button block color="primary" [disabled]="signupform.invalid">REGISTRARSE</button>
+    </form>
+    <button ion-button block color="primary" (click)="back()">ATRÁS</button>
+  </ion-list>
+</ion-content>
+<style type="text/css">
+  .error {
+    color: rgb(223, 62, 62);
+    font-size: 11px;
+  }
+
+  .error1 {
+    color: rgb(75, 75, 75);
+    border-bottom: 1px solid #ff0000;
+  }
+  </style>
