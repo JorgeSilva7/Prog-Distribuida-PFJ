@@ -7,18 +7,25 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Opciones</ion-title>
+    <ion-title><ion-icon name="construct"></ion-icon> Opciones</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-<ion-list>
-  <ion-item>
-    <button ion-button block (click)="profile()">Mi Perfil</button>
-    <button ion-button block (click)="devices()">Dispositivos</button>
-    <button ion-button block (click)="logout()">Salir</button>
-  </ion-item>
-</ion-list>
+  <ion-list>
+    <ion-item text-center>
+      <button ion-button icon-start large (click)="profile()"><ion-icon
+          name="contact"></ion-icon> Mi Perfil</button>
+    </ion-item>
+    <ion-item text-center>
+      <button ion-button icon-start large (click)="devices()"><ion-icon
+          name="radio"></ion-icon> Dispositivos</button>
+    </ion-item>
+    <ion-item text-center>
+      <button ion-button icon-start large (click)="logout()"><ion-icon
+          name="log-out"></ion-icon> Cerrar Sesión</button>
+    </ion-item>
+  </ion-list>
 </ion-content>

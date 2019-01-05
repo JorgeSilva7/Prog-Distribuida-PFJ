@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, LoadingController, AlertController, ModalController, Modal } from 'ionic-angular';
+import { IonicPage, NavParams, LoadingController, AlertController, NavController } from 'ionic-angular';
 
 import { ApiServiceProvider } from '../../providers/api-service/api-service';
-import { Device } from './../../models/device';
 import { AgregardispositivoPage } from '../agregardispositivo/agregardispositivo';
 
 /**
@@ -19,14 +18,18 @@ import { AgregardispositivoPage } from '../agregardispositivo/agregardispositivo
 })
 export class DispositivosPage {
 
-  devices: Device;
+  data: any;
 
   constructor(public api: ApiServiceProvider, public loadingController: LoadingController,
-    private alertCtrl: AlertController, public navParams: NavParams, public modalCtrl: ModalController) {
-  }
+    private alertCtrl: AlertController, public navParams: NavParams, public navCtrl: NavController) {
+      
+    }
 
   ngOnInit() {
-    this.getDevices();
+  }
+
+  ionViewWillEnter(){
+   this.getDevices();
   }
 
   getDevices() {
@@ -37,8 +40,7 @@ export class DispositivosPage {
     loading.present();
     this.api.getDevices()
       .subscribe(res => {
-        this.devices = res;
-        console.log(res);
+        this.data = res;
         loading.dismiss();
       }, err => {
         this.alert("ERROR", err.error.error);
@@ -46,14 +48,57 @@ export class DispositivosPage {
       });
   }
 
-  addDeviceModal(){
-    const modal = this.modalCtrl.create( AgregardispositivoPage, {"title": "Agregar"} );
-    modal.present();
+  addDevicePage(){
+    this.navCtrl.push(AgregardispositivoPage, {"title": "Agregar"});
   }
 
-  editDevice(idDevice){
-    const modal = this.modalCtrl.create( AgregardispositivoPage, {"title": "Editar"} );
-    modal.present();
+  editDevicePage(idDevice, deviceName, deviceIp, deviceType){
+    this.navCtrl.push(AgregardispositivoPage, 
+      {
+        "title": "Editar", 
+        "id": idDevice, 
+        "deviceName": deviceName,
+        "deviceIp": deviceIp,
+        "deviceType": deviceType
+    })
+  }
+
+  removeDeviceAlert(idDevice, deviceName){
+    const alert = this.alertCtrl.create({
+      title: 'CONFIRMANDO ELIMINACIÓN',
+      message: 'DESEA ELIMINAR EL DISPOSITIVO: '+deviceName,
+      buttons: [
+        {
+          text: 'NO',
+          role: 'cancel'
+        },
+        {
+          text: 'ELIMINAR',
+          handler: () =>{
+            this.removeDevice(idDevice);
+          }
+        }
+    ]
+    });
+
+    alert.present();
+  }
+
+  removeDevice(idDevice){
+    let loading = this.loadingController.create({
+      content: 'Procesando...'
+    });
+
+    loading.present();
+    this.api.removeDevice(idDevice)
+      .subscribe(res => {
+        this.data = res;
+        loading.dismiss();
+        this.getDevices();
+      }, err => {
+        this.alert("ERROR", err.error.error);
+        loading.dismiss();
+      });
   }
 
   alert(title, msg) {

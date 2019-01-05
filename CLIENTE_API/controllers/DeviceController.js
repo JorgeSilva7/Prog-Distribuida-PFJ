@@ -30,6 +30,7 @@ exports.editDevice = function (req, res) {
 
         device.ip = req.body.ip != null ? req.body.ip : device.ip;
         device.name = req.body.name != null ? req.body.name : device.name;
+        device.type = req.body.type != null ? req.body.type : device.type;
 
         device.save(function (err, device) {
             if (err) return res.status(500).send(err.message);
@@ -116,5 +117,6 @@ checkBodyDevice = function (req) {
     if (req.body.ip == null) error = { "error": "Falta el ip" };
     if (req.body.name == null) error = { "error": "Falta el nombre" };
     if (req.body.type == null) error = { "error": "Falta el tipo (0: Sensores | 1: Actuadores)" };
+    if (req.body.type != 1 && req.body.type != 0) error={"error": "El tipo debe ser Actuadores o Sensores"}
     return error;
 }

@@ -25,7 +25,10 @@ export class ActuadoresPage {
   }
 
   ngOnInit() {
-    this.getDevices();
+  }
+
+  ionViewWillEnter(){
+   this.getDevices();
   }
 
   getDevices() {

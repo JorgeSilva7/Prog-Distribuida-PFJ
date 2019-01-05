@@ -13,5 +13,114 @@
 
 
 <ion-content padding>
+  <ion-list>
+    <div *ngIf='title == "Agregar"'>
+    <form novalidate (ngSubmit)="addDevice()" [formGroup]="addDeviceForm">
+      <ion-item>
+        <ion-label floating>Nombre</ion-label>
+        <ion-input type="text" [(ngModel)]="device.name" formControlName="name"
+          [class.error1]="!addDeviceForm.controls.name.valid &&
+          addDeviceForm.controls.name.dirty"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="(
+        addDeviceForm.get('name').hasError('minlength')
+        ||addDeviceForm.get('name').hasError('required') ) &&
+        addDeviceForm.get('name').touched">
+        <div class="error" *ngIf="addDeviceForm.get('name').hasError('required')
+          && addDeviceForm.get('name').touched">
+          Por favor ingrese el nombre
+        </div>
+        <div class="error" *ngIf="addDeviceForm.get('name').hasError('pattern')
+          && addDeviceForm.get('name').touched">
+          El nombre es requerido
+        </div>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>IP</ion-label>
+        <ion-input type="text" [(ngModel)]="device.ip" formControlName="ip"
+          [class.error1]="!addDeviceForm.controls.ip.valid &&
+          addDeviceForm.controls.ip.dirty"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="( addDeviceForm.get('ip').hasError('minlength')
+        || addDeviceForm.get('ip').hasError('required') ) &&
+        addDeviceForm.get('ip').touched">
+        <div class="error" *ngIf="addDeviceForm.get('ip').hasError('required')
+          && addDeviceForm.get('ip').touched">
+          Porfavor ingrese la ip del dispositivo
+        </div>
+        <div class="error" *ngIf="addDeviceForm.get('ip').hasError('minlength')
+          && addDeviceForm.get('ip').touched">
+          Mínimo 7 caracteres
+        </div>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Tipo Dispositivo</ion-label>
+        <ion-select [(ngModel)]="device.type" multiple="false"
+          formControlName="type">
+          <ion-option [value]="-1">Selecciona un Tipo</ion-option>
+          <ion-option [value]="0">Sensores</ion-option>
+          <ion-option [value]="1">Actuadores</ion-option>
+        </ion-select>
+      </ion-item>
+      <button type="submit" ion-button block color="primary"
+        [disabled]="addDeviceForm.invalid">AGREGAR</button>
+    </form>
+    <button ion-button block color="secondary" (click)="closePage()">CERRAR</button>
+    </div>
+
+    <div *ngIf='title == "Editar"'>
+        <form novalidate (ngSubmit)="editDevice()" [formGroup]="editDeviceForm">
+          <ion-item>
+            <ion-label floating>Nombre</ion-label>
+            <ion-input type="text" [(ngModel)]="deviceEdit.name" formControlName="name"
+              [class.error1]="!addDeviceForm.controls.name.valid &&
+              editDeviceForm.controls.name.dirty"></ion-input>
+          </ion-item>
+          <ion-item no-lines *ngIf="(
+            editDeviceForm.get('name').hasError('minlength')
+            || editDeviceForm.get('name').hasError('required') ) &&
+            editDeviceForm.get('name').touched">
+            <div class="error" *ngIf="editDeviceForm.get('name').hasError('required')
+              && editDeviceForm.get('name').touched">
+              Por favor ingrese el nombre
+            </div>
+            <div class="error" *ngIf="editDeviceForm.get('name').hasError('pattern')
+              && editDeviceForm.get('name').touched">
+              El nombre es requerido
+            </div>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>IP</ion-label>
+            <ion-input type="text" [(ngModel)]="deviceEdit.ip" formControlName="ip"
+              [class.error1]="!editDeviceForm.controls.ip.valid &&
+              editDeviceForm.controls.ip.dirty"></ion-input>
+          </ion-item>
+          <ion-item no-lines *ngIf="( editDeviceForm.get('ip').hasError('minlength')
+            || editDeviceForm.get('ip').hasError('required') ) &&
+            editDeviceForm.get('ip').touched">
+            <div class="error" *ngIf="editDeviceForm.get('ip').hasError('required')
+              && editDeviceForm.get('ip').touched">
+              Porfavor ingrese la ip del dispositivo
+            </div>
+            <div class="error" *ngIf="editDeviceForm.get('ip').hasError('minlength')
+              && editDeviceForm.get('ip').touched">
+              Mínimo 7 caracteres
+            </div>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Tipo Dispositivo</ion-label>
+            <ion-select [(ngModel)]="deviceEdit.type" multiple="false"
+              formControlName="type">
+              <ion-option [value]="-1">Selecciona un Tipo</ion-option>
+              <ion-option [value]="0">Sensores</ion-option>
+              <ion-option [value]="1">Actuadores</ion-option>
+            </ion-select>
+          </ion-item>
+          <button type="submit" ion-button block color="primary"
+            [disabled]="editDeviceForm.invalid">EDITAR</button>
+        </form>
+        <button ion-button block color="secondary" (click)="closePage()">CERRAR</button>
+        </div>
+  </ion-list>
 
 </ion-content>

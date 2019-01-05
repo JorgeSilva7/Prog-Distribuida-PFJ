@@ -7,16 +7,14 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Actuadores</ion-title>
+    <ion-title><ion-icon name="outlet"></ion-icon> Actuadores</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <ion-list>
-    <div *ngFor="let device of devices">
-      <br>
+  <ion-list *ngFor="let device of devices">
       <h2>{{device.name}}</h2>
       <h5>IP: {{device.ip}}</h5>
       <ion-row>
@@ -40,6 +38,5 @@
         <button ion-button round (click)="apagar(4, device._id)">Apagar</button>
       </ion-row>
       <ion-item-divider></ion-item-divider>
-    </div>
   </ion-list>
 </ion-content>

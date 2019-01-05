@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
 import { LoginPage } from '../login/login';
 import { DispositivosPage } from '../dispositivos/dispositivos';
@@ -18,7 +18,7 @@ import { DispositivosPage } from '../dispositivos/dispositivos';
 })
 export class OpcionesPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public app: App) {
   }
 
   ionViewDidLoad() {
@@ -36,7 +36,11 @@ export class OpcionesPage {
   logout(){
     localStorage.removeItem('email');
     localStorage.removeItem('password');
-    this.navCtrl.setRoot( LoginPage );
+    localStorage.removeItem('token');
+    //this.navCtrl.setRoot( LoginPage );
+    this.app.getRootNav().setRoot(LoginPage);
+
+
   }
 
 }

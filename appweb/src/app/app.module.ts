@@ -32,7 +32,7 @@ import { ApiServiceProvider } from '../providers/api-service/api-service';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
